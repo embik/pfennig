@@ -1,0 +1,34 @@
+{{ define "body" }}
+<section class="hero is-info is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="columns">
+        <div class="column is-4 is-offset-4">
+          <div class="box">
+            <form action="/login" method="post" style="margin:0px;">
+              {{ .csrfField }}
+              <div class="field" style="margin:0px;">
+                <div class="control has-icons-left" style="margin-bottom: 0.5rem;">
+                  <input class="input" type="text" name="username" placeholder="Your Username or Email Adress">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                  </span>
+                </div>
+                <div class="control has-icons-left">
+                  <input class="input" type="password" name="password" placeholder="Your Password">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-key"></i>
+                  </span>
+                </div>
+              </div>
+              <input type="submit" style="display:none;">
+            </form>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ define "nav" }}{{ end }}
+{{ define "sidebar" }}{{ end }}
