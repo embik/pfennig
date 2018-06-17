@@ -3,8 +3,8 @@ package models
 type AccountType struct {
     ID          uint    `json:"id"`
     Label       string  `json:"label"`
-    UserID      int     `json:"-"`
     IsGlobal    bool    `json:"is_global"`
+    UserID      int     `json:"-"`
 }
 
 type Account struct {

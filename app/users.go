@@ -19,6 +19,7 @@ func GetUser(username string) (bool, models.User) {
 
 func convertUser(data db_models.User) models.User {
     return models.User{
+        ID: data.ID,
         Username: data.Username,
         FirstName: data.FirstName,
         LastName: data.LastName,
