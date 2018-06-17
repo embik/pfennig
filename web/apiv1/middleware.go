@@ -28,7 +28,7 @@ func requireToken(next http.Handler) http.Handler {
             })
 
             if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-                context := context.WithValue(r.Context(), "userID", claims["userID"])
+                context := context.WithValue(r.Context(), "userID", claims["user_id"])
                 next.ServeHTTP(w, r.WithContext(context))
             } else {
                 fmt.Printf("Error: %s\n", err)
