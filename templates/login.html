@@ -5,7 +5,7 @@
       <div class="columns">
         <div class="column is-4 is-offset-4">
           <div class="box">
-            <form action="/login" method="post" style="margin:0px;">
+            <form action="{{ getURI "login" }}" method="post" style="margin:0px;">
               {{ .csrfField }}
               <div class="field" style="margin:0px;">
                 <div class="control has-icons-left" style="margin-bottom: 0.5rem;">
