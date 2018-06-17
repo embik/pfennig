@@ -1,4 +1,4 @@
-package app
+package models
 
 type Category struct {
     ID          int     `json:"id"`

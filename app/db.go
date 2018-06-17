@@ -3,17 +3,19 @@ package app
 import (
     "github.com/jinzhu/gorm"
     _ "github.com/jinzhu/gorm/dialects/sqlite"
+
+    "github.com/embik/pfennig/app/db_models"
 )
 
-var db *gorm.DB
+var database *gorm.DB
 
-func InitDB(dbPath string) error {
+func InitDB(databasePath string) error {
     var err error
-    db, err = gorm.Open("sqlite3", dbPath)
+    database, err = gorm.Open("sqlite3", databasePath)
     if err == nil {
-        db.AutoMigrate(&User{})
-        db.AutoMigrate(&AccountType{})
-        db.AutoMigrate(&Account{})
+        database.AutoMigrate(&db_models.User{})
+        database.AutoMigrate(&db_models.AccountType{})
+        database.AutoMigrate(&db_models.Account{})
 
         createDefaultData()
     }
@@ -21,13 +23,13 @@ func InitDB(dbPath string) error {
 }
 
 func createDefaultData() {
-    db.FirstOrCreate(&AccountType{Label: "Girokonto"})
+    database.FirstOrCreate(&db_models.AccountType{Label: "Girokonto", IsGlobal: true})
 }
 
 func CloseDB() {
-    db.Close()
+    database.Close()
 }
 
-func GetDB() *gorm.DB {
-    return db
+func getDB() *gorm.DB {
+    return database
 }

@@ -1,18 +1,28 @@
 package app
 
 import (
-    "github.com/jinzhu/gorm"
+	"github.com/embik/pfennig/app/models"
+    "github.com/embik/pfennig/app/db_models"
 )
 
-type AccountType struct {
-    gorm.Model
-    Label   string      `gorm:"unique"`
+func GetAccountTypes(userID int) []models.AccountType {
+    var account_types []db_models.AccountType
+
+    db := getDB()
+    db.Where(&db_models.AccountType{UserID: userID}).Or(&db_models.AccountType{IsGlobal: true}).Find(&account_types)
+    return convertAccountTypes(account_types)
 }
 
-type Account struct {
-    gorm.Model
-    Name        string      `json:"name"`
-    Bank        string      `json:"bank"`
-    AccountType AccountType `json:"-"`
-    AccountTypeID uint      `json:"account_type_id"`
+func convertAccountTypes(data []db_models.AccountType) []models.AccountType {
+    var account_types []models.AccountType
+    for _, e := range data {
+        account_types = append(account_types, models.AccountType{
+            ID: e.ID,
+            Label: e.Label,
+            UserID: e.UserID,
+            IsGlobal: e.IsGlobal,
+        })
+    }
+
+    return account_types
 }

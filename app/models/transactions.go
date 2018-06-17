@@ -1,8 +1,4 @@
-package app
-
-import (
-    "github.com/jinzhu/gorm"
-)
+package models
 
 type TransactionType uint
 
@@ -12,7 +8,6 @@ const (
 )
 
 type Transaction struct {
-    gorm.Model
     User        User
     UserID      uint
     Account     Account
