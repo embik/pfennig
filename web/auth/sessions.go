@@ -7,6 +7,7 @@ import (
     "github.com/gorilla/sessions"
 
     "github.com/embik/pfennig/app"
+    "github.com/embik/pfennig/app/models"
 )
 
 var (
@@ -64,14 +65,14 @@ func SignOut(w http.ResponseWriter, r *http.Request) {
     session.Save(r, w)
 }
 
-func ValidateLogin(username string, password string) (bool, app.User) {
-    var user app.User
-    if app.GetDB().Where(&app.User{Username: username}).First(&user).RecordNotFound() {
-        return false, user
-    }
-    err := bcrypt.CompareHashAndPassword([]byte(user.PwdHash), []byte(password))
-    if err == nil {
-        return true, user
+func ValidateLogin(username string, password string) (bool, models.User) {
+    var ok bool
+    var user models.User
+
+    if ok, user = app.GetUser(username); ok {
+        if bcrypt.CompareHashAndPassword([]byte(user.PwdHash), []byte(password)) == nil {
+            return true, user
+        }
     }
 
     return false, user

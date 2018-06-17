@@ -18,7 +18,6 @@ func asJSONMiddleware(next http.Handler) http.Handler {
 func requireToken(next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         tokenString := r.Header.Get("X-API-Token")
-        fmt.Println(tokenString)
         if tokenString != "" {
             token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
                 if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
@@ -29,8 +28,7 @@ func requireToken(next http.Handler) http.Handler {
             })
 
             if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-                fmt.Printf("%v\n", claims)
-                context := context.WithValue(r.Context(), "user", 1)
+                context := context.WithValue(r.Context(), "userID", claims["userID"])
                 next.ServeHTTP(w, r.WithContext(context))
             } else {
                 fmt.Printf("Error: %s\n", err)

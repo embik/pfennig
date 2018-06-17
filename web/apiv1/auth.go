@@ -15,6 +15,7 @@ var SigningKey = []byte("AllYourBase")
 
 type ApiClaims struct {
     Username string     `json:"user"`
+    UserID  uint        `json:"user_id"`
     jwt.StandardClaims
 }
 
@@ -48,6 +49,7 @@ func GetToken(w http.ResponseWriter, r *http.Request) {
 
         claims := ApiClaims {
             user.Username,
+            1,
             jwt.StandardClaims{
                 ExpiresAt:  expiry.Unix(),
                 Issuer:     "pfennig/v1",

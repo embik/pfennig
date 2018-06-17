@@ -4,10 +4,10 @@ import (
     "encoding/json"
     "net/http"
 
-    "github.com/embik/pfennig/app/db"
+    "github.com/embik/pfennig/app/models"
 )
 
 func GetCategories(w http.ResponseWriter, r *http.Request) {
-    categories := db.GetCategories()
+    var categories []models.Category
     json.NewEncoder(w).Encode(categories)
 }
