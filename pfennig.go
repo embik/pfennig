@@ -10,7 +10,6 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/gorilla/csrf"
 	"github.com/gorilla/handlers"
 	flag "github.com/spf13/pflag"
 
@@ -20,7 +19,9 @@ import (
 )
 
 func main() {
-	var ip net.IP
+    log.Println("Starting pfennig")
+
+    var ip net.IP
 	var port int
 	var assetPath, dbPath string
 	var wait time.Duration
@@ -34,21 +35,22 @@ func main() {
 
 	tmpl.InitTemplates()
 
+    log.Println("Initalizing Database")
 	err := app.InitDB(dbPath)
 	if err != nil {
 		panic(err)
 	}
 	defer app.CloseDB()
 
+    log.Println("Creating Dummy Data")
 	app.CreateDummyData()
 
-	csrfKey := "tee8MuT2uz5beeto7ohri9ush3aiwoh6"
-
-	r := web.NewRouter(assetPath)
+    log.Println("Starting Web Server")
+    r := web.NewRouter(assetPath)
 	srv := &http.Server{
 		Handler: handlers.LoggingHandler(
 			os.Stdout,
-			csrf.Protect([]byte(csrfKey), csrf.Secure(false))(r)),
+			r),
 		Addr: fmt.Sprintf("%v:%v", ip, port),
 	}
 
