@@ -1,7 +1,6 @@
 package apiv1
 
 import (
-    "fmt"
     "io/ioutil"
     "encoding/json"
     "net/http"
@@ -68,7 +67,12 @@ func CreateAccountType(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetAccounts(w http.ResponseWriter, r *http.Request) {
-    user := r.Context().Value("userID")
-    fmt.Println(user)
-    json.NewEncoder(w).Encode([]int{0})
+    user := uint(r.Context().Value("userID").(float64))
+    accounts := app.GetAccounts(user)
+    json.NewEncoder(w).Encode(Response{
+        Success: true,
+        ErrMsg: "",
+        ApiEndpoint: "v1/get_accounts",
+        Payload: accounts,
+    })
 }
