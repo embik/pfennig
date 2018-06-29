@@ -7,4 +7,5 @@ type User struct {
     LastName    string  `json:"last_name"`
     Email       string  `json:"email"`
     PwdHash     string  `json:"-"`
+    AccountIDs  []uint  `json:"account_ids"`
 }

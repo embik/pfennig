@@ -14,6 +14,9 @@ type AccountType struct {
 
 type Account struct {
     gorm.Model
+    Name            string
+    Bank            string
     AccountType     AccountType
     AccountTypeID   uint
+    Users           []*User     `gorm:"many2many:user_accounts;"`
 }
