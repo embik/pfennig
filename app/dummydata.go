@@ -26,4 +26,12 @@ func CreateDummyData() {
         Email: "marvin@embik.me",
         PwdHash: string(pwdEmbik2),
     }).FirstOrCreate(&embik2)
+
+    var account_1 db_models.Account
+    getDB().Where(db_models.Account{Name: "Sparkonto"}).Assign(db_models.Account{
+        Name:   "Sparkonto",
+        Bank:   "Sparkasse",
+        AccountTypeID:  1,
+        Users:  []*db_models.User{&embik, &embik2},
+    }).FirstOrCreate(&account_1)
 }
