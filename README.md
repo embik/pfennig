@@ -13,4 +13,4 @@ Pfennig is supposed to consist of two main components:
 
 ## License
 
-Pfennig is licensed under the MIT License. See [LICENCE](LICENCE) for more details.
+Pfennig is licensed under the MIT License. See [LICENSE](LICENSE) for more details.
