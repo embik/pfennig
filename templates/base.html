@@ -8,88 +8,8 @@
     {{ template "head" . }}
   </head>
   <body>
-    {{ template "body" . }}
   </body>
 </html>
 {{ end }}
 
-{{ define "body" }}
-  {{ template "nav" . }}
-  <div class="columns">
-    {{ template "sidebar" . }}
-    <div class="column">
-      <main style="padding: 1.5rem;">
-        {{ template "main" . }}
-      </main>
-    </div>
-  </div>
-{{ end }}
-
-{{ define "nav" }}
-<nav class="navbar is-info">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="/">
-        Pfennig
-      </a>
-    </div>
-    <div id="navbar" class="navbar-menu">
-      <div class="navbar-end">
-        <a class="navbar-item" href="/">
-          <span class="icon">
-            <i class="far fa-calendar-alt"></i>
-          </span>
-          <span>
-            April 1, 2018 - April 30, 2018
-          </span>
-        </a>
-        <a class="navbar-item">
-          <span class="icon">
-            <i class="far fa-user-circle"></i>
-          </span>
-          <span>
-			{{ .Session.Username }}
-          </span>
-        </a>
-        <a class="navbar-item">
-          <span class="icon">
-            <i class="far fa-plus-square"></i>
-          </span>
-        </a>
-      </div>
-    </div>
-  </nav>
-{{ end }}
-
-{{ define "sidebar" }}
-<div class="column is-one-fifth" style="padding: 1.5rem;">
-  <aside class="menu">
-    <p class="menu-label">Overview</p>
-      <ul class="menu-list">
-        <li><a href="{{ getURI "index" }}">Dashboard</a></li>
-      </ul>
-      <p class="menu-label">Accounts</p>
-      <ul class="menu-list">
-        <li><a>
-          <span class="icon">
-            <i class="far fa-credit-card"></i>
-          </span>
-          <span>
-            ING DiBa
-          </span>
-        </a></li>
-      </ul>
-      <p class="menu-label">User</p>
-      <ul class="menu-list">
-        <li>
-          <form action="{{ getURI "logout" }}" method="post">
-            {{ .csrfField }}
-            <input type="submit" value="Logout" class="button is-text" style="width:100%; text-align: left;">
-          </form>
-        </li>
-      </ul>
-    </aside>
-</div>
-{{ end }}
-
-{{ define "main" }}{{ end }}
 {{ define "head" }}{{ end }}

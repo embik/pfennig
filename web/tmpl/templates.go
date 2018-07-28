@@ -14,5 +14,4 @@ func InitTemplates() {
 
     Templates = make(map[string]*template.Template)
     Templates["index.html"] = template.Must(template.New("").Funcs(tmplMap).ParseFiles("templates/base.html", "templates/index.html"))
-    Templates["login.html"] = template.Must(template.New("").Funcs(tmplMap).ParseFiles("templates/base.html", "templates/login.html"))
 }
