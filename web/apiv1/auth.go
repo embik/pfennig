@@ -69,7 +69,7 @@ func GetToken(w http.ResponseWriter, r *http.Request) {
         w.WriteHeader(http.StatusUnauthorized)
         json.NewEncoder(w).Encode(Response{
             Success: false,
-            ErrMsg: "User or Passwort incorrect",
+            ErrMsg: "User or password incorrect",
             ApiEndpoint: "v1/get_token",
             Payload: "",
         })

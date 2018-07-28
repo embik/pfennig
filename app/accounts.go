@@ -5,6 +5,18 @@ import (
     "github.com/embik/pfennig/app/db_models"
 )
 
+func CreateAccount(data models.Account) bool {
+    var users []*db_models.User
+    err := getDB().Create(&db_models.Account{
+        Name:           data.Name,
+        Bank:           data.Bank,
+        AccountTypeID:  data.AccountTypeID,
+        Users:          users,
+    }).Error
+
+    return err == nil
+}
+
 func GetAccounts(userID uint) []models.Account {
     var accounts []db_models.Account
     var user db_models.User
@@ -17,7 +29,7 @@ func GetAccounts(userID uint) []models.Account {
 
 func GetAccountTypes(userID uint) []models.AccountType {
     var account_types []db_models.AccountType
-    getDB().Where(&db_models.AccountType{UserID: int(userID)}).Or(&db_models.AccountType{IsGlobal: true}).Find(&account_types)
+    getDB().Find(&account_types)
 
     return convertAccountTypes(account_types)
 }
@@ -25,8 +37,6 @@ func GetAccountTypes(userID uint) []models.AccountType {
 func CreateAccountType(data models.AccountType) bool {
     err := getDB().Create(&db_models.AccountType{
         Label:      data.Label,
-        IsGlobal:   data.IsGlobal,
-        UserID:     data.UserID,
     }).Error
 
     return err == nil
@@ -56,8 +66,6 @@ func convertAccountTypes(data []db_models.AccountType) []models.AccountType {
         account_types = append(account_types, models.AccountType{
             ID: e.ID,
             Label: e.Label,
-            UserID: e.UserID,
-            IsGlobal: e.IsGlobal,
         })
     }
 

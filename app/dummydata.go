@@ -15,6 +15,7 @@ func CreateDummyData() {
         LastName: "Beckers",
         Email: "mail@embik.me",
         PwdHash: string(pwdEmbik),
+        IsAdmin: true,
     }).FirstOrCreate(&embik)
 
     pwdEmbik2, _ := bcrypt.GenerateFromPassword([]byte("testtest2"), 14)

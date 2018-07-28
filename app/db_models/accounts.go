@@ -7,9 +7,6 @@ import (
 type AccountType struct {
     gorm.Model
     Label       string
-    UserID      int
-    User        User
-    IsGlobal    bool
 }
 
 type Account struct {

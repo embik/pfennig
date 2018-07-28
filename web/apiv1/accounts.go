@@ -22,7 +22,17 @@ func GetAccountTypes(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateAccountType(w http.ResponseWriter, r *http.Request) {
-    user := uint(r.Context().Value("userID").(float64))
+    ok, user := app.GetUserByID(uint(r.Context().Value("userID").(float64)))
+    if !ok || !user.IsAdmin {
+        w.WriteHeader(http.StatusUnauthorized)
+        json.NewEncoder(w).Encode(Response{
+            Success: false,
+            ErrMsg: "You're not authorized to create new account types",
+            ApiEndpoint: "v1/create_account_type",
+            Payload: "",
+        })
+        return
+    }
 
     body, err := ioutil.ReadAll(r.Body)
     defer r.Body.Close()
@@ -45,8 +55,6 @@ func CreateAccountType(w http.ResponseWriter, r *http.Request) {
 
     account_type := models.AccountType{
         Label: request.Label,
-        IsGlobal: request.IsGlobal,
-        UserID: int(user),
     }
 
     if app.CreateAccountType(account_type) {

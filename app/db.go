@@ -23,7 +23,7 @@ func InitDB(databasePath string) error {
 }
 
 func createDefaultData() {
-    database.FirstOrCreate(&db_models.AccountType{Label: "Girokonto", IsGlobal: true})
+    database.FirstOrCreate(&db_models.AccountType{Label: "Girokonto"})
 }
 
 func CloseDB() {

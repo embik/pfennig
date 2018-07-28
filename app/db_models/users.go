@@ -11,5 +11,6 @@ type User struct {
     LastName    string
     Email       string
     PwdHash     string
+    IsAdmin     bool
     Accounts    []*Account  `gorm:"many2many:user_accounts;"`
 }
