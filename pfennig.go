@@ -15,7 +15,6 @@ import (
 
 	"github.com/embik/pfennig/app"
 	"github.com/embik/pfennig/web"
-	"github.com/embik/pfennig/web/tmpl"
 )
 
 func main() {
@@ -23,17 +22,14 @@ func main() {
 
     var ip net.IP
 	var port int
-	var assetPath, dbPath string
+	var dbPath string
 	var wait time.Duration
 
 	flag.IPVar(&ip, "bind-ip", net.IPv4(127, 0, 0, 1), "ip address to bind the server to")
 	flag.IntVar(&port, "bind-port", 8080, "port to bind the server to")
-	flag.StringVar(&assetPath, "asset-path", "./assets", "directory to server static asset files from")
 	flag.DurationVar(&wait, "graceful-timeout", time.Second*15, "the duration for which the server gracefully waits for existing connections to close")
 	flag.StringVar(&dbPath, "db-path", "pfennig.db", "location for sqlite database file")
 	flag.Parse()
-
-	tmpl.InitTemplates()
 
     log.Println("Initalizing Database")
 	err := app.InitDB(dbPath)
@@ -46,7 +42,7 @@ func main() {
 	app.CreateDummyData()
 
     log.Println("Starting Web Server")
-    r := web.NewRouter(assetPath)
+    r := web.NewRouter()
 	srv := &http.Server{
 		Handler: handlers.LoggingHandler(
 			os.Stdout,
