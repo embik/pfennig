@@ -14,6 +14,7 @@ import (
 
 	"github.com/embik/pfennig/pkg/data"
     "github.com/embik/pfennig/pkg/router"
+    mw "github.com/embik/pfennig/pkg/middleware"
 )
 
 func StartPfennig() {
@@ -30,20 +31,20 @@ func StartPfennig() {
 	flag.StringVar(&dbPath, "db-path", "pfennig.db", "location for sqlite database file")
 	flag.Parse()
 
-    log.Println("Initalizing Database")
+    log.Info("initalizing database")
 	err := data.InitDB(dbPath)
 	if err != nil {
 		panic(err)
 	}
 	defer data.CloseDB()
 
-    log.Println("Creating Dummy Data")
+    log.Info("creating dummy data")
 	data.CreateDummyData()
 
-    log.Println("Starting API Server")
+    log.Info("starting api server")
     r := router.GetRouter()
 	srv := &http.Server{
-		Handler: r,
+		Handler: mw.RequestLogging(r),
 		Addr: fmt.Sprintf("%v:%v", ip, port),
 	}
 
