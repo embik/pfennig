@@ -15,6 +15,7 @@ func RequestLogging(next http.Handler) http.Handler {
             "host": r.Host,
             "url": r.URL,
             "remote": r.RemoteAddr,
+            "content_length": r.ContentLength,
         }).Info("received http request")
     })
 }
