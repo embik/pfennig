@@ -12,6 +12,7 @@ require (
 	github.com/jinzhu/inflection v0.0.0-20180308033659-04140366298a
 	github.com/mattn/go-sqlite3 v1.10.0
 	github.com/pkg/errors v0.8.0
+	github.com/sirupsen/logrus v1.2.0
 	github.com/spf13/pflag v1.0.3
 	golang.org/x/crypto v0.0.0-20181203042331-505ab145d0a9
 )
