@@ -8,13 +8,6 @@ import (
 	jwt "github.com/dgrijalva/jwt-go"
 )
 
-func asJSONMiddleware(next http.Handler) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        w.Header().Set("Content-Type", "application/json")
-        next.ServeHTTP(w, r)
-    })
-}
-
 func requireToken(next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         tokenString := r.Header.Get("X-API-Token")

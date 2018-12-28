@@ -3,6 +3,8 @@ package apiv1
 import (
     "net/http"
     "github.com/gorilla/mux"
+
+    mw "github.com/embik/pfennig/pkg/middleware"
 )
 
 func WireUpRoutes(router *mux.Router) {
@@ -16,5 +18,5 @@ func WireUpRoutes(router *mux.Router) {
     r.HandleFunc("/transactions", GetTransactions).Methods("GET")
     r.HandleFunc("/categories", GetCategories).Methods("GET")
 
-    r.Use(asJSONMiddleware)
+    r.Use(mw.AsJSON)
 }
