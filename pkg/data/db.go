@@ -1,10 +1,10 @@
-package app
+package data
 
 import (
     "github.com/jinzhu/gorm"
     _ "github.com/jinzhu/gorm/dialects/sqlite"
 
-    "github.com/embik/pfennig/app/db_models"
+    "github.com/embik/pfennig/pkg/data/db_models"
 )
 
 var database *gorm.DB

@@ -5,13 +5,13 @@ import (
     "encoding/json"
     "net/http"
 
-    "github.com/embik/pfennig/app"
-    "github.com/embik/pfennig/app/models"
+    "github.com/embik/pfennig/pkg/data"
+    "github.com/embik/pfennig/pkg/data/models"
 )
 
 func GetAccountTypes(w http.ResponseWriter, r *http.Request) {
     user := uint(r.Context().Value("userID").(float64))
-    types := app.GetAccountTypes(user)
+    types := data.GetAccountTypes(user)
 
     json.NewEncoder(w).Encode(Response{
         Success: true,
@@ -22,7 +22,7 @@ func GetAccountTypes(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateAccountType(w http.ResponseWriter, r *http.Request) {
-    ok, user := app.GetUserByID(uint(r.Context().Value("userID").(float64)))
+    ok, user := data.GetUserByID(uint(r.Context().Value("userID").(float64)))
     if !ok || !user.IsAdmin {
         w.WriteHeader(http.StatusUnauthorized)
         json.NewEncoder(w).Encode(Response{
@@ -57,7 +57,7 @@ func CreateAccountType(w http.ResponseWriter, r *http.Request) {
         Label: request.Label,
     }
 
-    if app.CreateAccountType(account_type) {
+    if data.CreateAccountType(account_type) {
         json.NewEncoder(w).Encode(Response{
             Success: true,
             ErrMsg: "",
@@ -76,7 +76,7 @@ func CreateAccountType(w http.ResponseWriter, r *http.Request) {
 
 func GetAccounts(w http.ResponseWriter, r *http.Request) {
     user := uint(r.Context().Value("userID").(float64))
-    accounts := app.GetAccounts(user)
+    accounts := data.GetAccounts(user)
     json.NewEncoder(w).Encode(Response{
         Success: true,
         ErrMsg: "",

@@ -1,8 +1,8 @@
-package app
+package data
 
 import (
-	"github.com/embik/pfennig/app/models"
-    "github.com/embik/pfennig/app/db_models"
+	"github.com/embik/pfennig/pkg/data/models"
+    "github.com/embik/pfennig/pkg/data/db_models"
 )
 
 func CreateAccount(data models.Account) bool {

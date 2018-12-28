@@ -4,7 +4,7 @@ import (
     "encoding/json"
     "net/http"
 
-    "github.com/embik/pfennig/app/models"
+    "github.com/embik/pfennig/pkg/data/models"
 )
 
 func GetCategories(w http.ResponseWriter, r *http.Request) {

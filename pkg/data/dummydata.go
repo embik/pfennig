@@ -1,9 +1,9 @@
-package app
+package data
 
 import (
     "golang.org/x/crypto/bcrypt"
 
-    "github.com/embik/pfennig/app/db_models"
+    "github.com/embik/pfennig/pkg/data/db_models"
 )
 
 func CreateDummyData() {

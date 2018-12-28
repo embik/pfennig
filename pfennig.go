@@ -13,7 +13,7 @@ import (
 	"github.com/gorilla/handlers"
 	flag "github.com/spf13/pflag"
 
-	"github.com/embik/pfennig/app"
+	"github.com/embik/pfennig/pkg/data"
 	"github.com/embik/pfennig/web"
 )
 
@@ -32,14 +32,14 @@ func main() {
 	flag.Parse()
 
     log.Println("Initalizing Database")
-	err := app.InitDB(dbPath)
+	err := data.InitDB(dbPath)
 	if err != nil {
 		panic(err)
 	}
-	defer app.CloseDB()
+	defer data.CloseDB()
 
     log.Println("Creating Dummy Data")
-	app.CreateDummyData()
+	data.CreateDummyData()
 
     log.Println("Starting Web Server")
     r := web.NewRouter()
