@@ -8,7 +8,7 @@ import (
 
     jwt "github.com/dgrijalva/jwt-go"
 
-    "github.com/embik/pfennig/web/auth"
+    "github.com/embik/pfennig/pkg/auth"
 )
 
 var SigningKey = []byte("AllYourBase")

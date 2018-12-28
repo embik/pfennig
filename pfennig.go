@@ -14,7 +14,7 @@ import (
 	flag "github.com/spf13/pflag"
 
 	"github.com/embik/pfennig/pkg/data"
-	"github.com/embik/pfennig/web"
+    "github.com/embik/pfennig/pkg/router"
 )
 
 func main() {
@@ -42,7 +42,7 @@ func main() {
 	data.CreateDummyData()
 
     log.Println("Starting Web Server")
-    r := web.NewRouter()
+    r := router.GetRouter()
 	srv := &http.Server{
 		Handler: handlers.LoggingHandler(
 			os.Stdout,

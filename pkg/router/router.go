@@ -3,6 +3,8 @@ package router
 import (
     "log"
     "github.com/gorilla/mux"
+
+    v1 "github.com/embik/pfennig/pkg/api/v1"
 )
 
 var (
@@ -10,6 +12,8 @@ var (
 )
 
 func GetRouter() *mux.Router {
+    apiRouter := r.PathPrefix("/api/").Subrouter()
+    v1.WireUpRoutes(apiRouter)
     return r
 }
 
